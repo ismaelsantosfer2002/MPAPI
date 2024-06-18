@@ -1,5 +1,6 @@
 package com.suit.checkout.controller;
 
+import com.suit.checkout.exception.InvalidKeyException;
 import com.suit.checkout.models.Pagamentos;
 import com.suit.checkout.models.dtos.MPDTOS.NotificationMP;
 import com.suit.checkout.models.dtos.PagamentoRequestDTO;
@@ -56,12 +57,14 @@ public class PaymentController {
         return paymentService.getPagamentoByIdTransactionSuitPay(id);
     }
 
-    @GetMapping("/rifa/{nomeRifa}")
-    public ResponseRifaValues getPaymentsByRifa(@PathVariable String nomeRifa, @PathVariable("key") String key) {
+    @GetMapping("/rifa/{nomeRifa}/{key}")
+    public ResponseRifaValues getPaymentsByRifa(@PathVariable String nomeRifa, @PathVariable String key) {
         if (!key.equals(keySenha)) {
-            return null;
+            throw new InvalidKeyException("SENHA INVÁLIDA");
         }
         return paymentService.findPaymentsByNomeRifa(nomeRifa);
     }
+
+
 
 }

@@ -22,6 +22,7 @@ public class PaymentService {
 
     private static final String  urlPayment ="https://ws.suitpay.app/api/v1/gateway/request-qrcode";
     private static final String callbackUrl = "https://rodapremios.com/api/payment/callback";
+
     private static final String ci = "leochagas10_1712778711095";
     private static final String cs = "dd1e86b4b1ec274fa4f8f6ba7f388e0a87d8cd31ef5fa375ea085076156260f1ed5f5febbea14b13a1577c37ad110853";
     private static final String tokenMercadoPago = "APP_USR-8420355569686117-060817-af73685d8e0d6c4d000ee38c97360345-1847731087";
@@ -121,7 +122,7 @@ public class PaymentService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + tokenMercadoPago);
-
+        String urlGetPaymentMP = "https://api.mercadopago.com/v1/payments/" + idInMP;
         HttpEntity<String> entity = new HttpEntity<>(headers);
         GetPaymentResponse paymentResponse = restTemplate.exchange(urlGetPaymentMP, HttpMethod.GET, entity, GetPaymentResponse.class).getBody();
         if (Objects.equals(paymentResponse.status(), "approved")){
