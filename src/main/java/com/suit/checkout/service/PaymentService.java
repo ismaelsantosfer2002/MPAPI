@@ -168,7 +168,7 @@ public class PaymentService {
     }
 
     public Pagamentos getPagamentoByIdTransactionSuitPay(String idTransactionSuitPay){
-        return pagamentoRepository.findPagamentosByIdTransactionSuitPay(idTransactionSuitPay);
+        return pagamentoRepository.findById(UUID.fromString(idTransactionSuitPay)).orElseThrow();
     }
 
     public ResponseRifaValues findPaymentsByNomeRifa(String nomeRifa){
